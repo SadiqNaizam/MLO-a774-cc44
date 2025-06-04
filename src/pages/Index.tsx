@@ -1,14 +1,44 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React from 'react';
+import MainAppLayout from '../components/layout/MainAppLayout';
+import PostInput from '../components/Feed/PostInput';
+import PostFeed from '../components/Feed/PostFeed';
+import StoriesPanel from '../components/Stories/StoriesPanel';
+import SuggestedGroups from '../components/Groups/SuggestedGroups';
+import ChatBar from '../components/Chat/ChatBar';
 
-const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+/**
+ * SocialDashboardPage represents the main social media feed page.
+ * It assembles various organisms like PostInput, PostFeed, StoriesPanel,
+ * SuggestedGroups, and ChatBar using the MainAppLayout for overall structure.
+ */
+const SocialDashboardPage: React.FC = () => {
+  // Content for the main central area of the layout
+  // This area will contain the post input field and the post feed.
+  // It's styled to be a single column, centered, with a max width similar to common social media feeds.
+  const mainContent = (
+    <div className="w-full max-w-xl mx-auto space-y-6">
+      <PostInput /> {/* PostInput will take the full width of its parent (max-w-xl) */}
+      <PostFeed />  {/* PostFeed also has max-w-xl and mx-auto, fitting well here */}
     </div>
+  );
+
+  // Content for the right-hand panel of the layout
+  // This panel typically shows stories, suggested groups, or other contextual information.
+  const rightPanelContent = (
+    <div className="space-y-6">
+      <StoriesPanel />
+      <SuggestedGroups />
+    </div>
+  );
+
+  return (
+    <>
+      <MainAppLayout rightPanelSlot={rightPanelContent}>
+        {mainContent}
+      </MainAppLayout>
+      <ChatBar /> {/* ChatBar is a fixed floating component, rendered outside MainAppLayout's grid flow */}
+    </>
   );
 };
 
-export default Index;
+export default SocialDashboardPage;
